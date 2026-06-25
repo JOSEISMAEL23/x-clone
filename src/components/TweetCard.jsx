@@ -3,6 +3,7 @@ import { Heart } from 'lucide-react'
 import { formatRelativeTime } from '../lib/formatTime'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
+import { Link } from 'react-router-dom'
 
 function TweetCard({ tweet }) {
   const { user } = useAuth()
@@ -30,18 +31,22 @@ function TweetCard({ tweet }) {
         {initial}
       </div>
       <div className="flex-1 min-w-0">
+      
         <div className="flex items-center gap-2 text-sm flex-wrap">
-          <span className="font-bold text-white">{profile?.full_name}</span>
-          <span className="text-gray-500">@{profile?.username}</span>
+          <Link to={`/profile/${profile?.username}`} className="font-bold text-white hover:underline">
+            {profile?.full_name}
+          </Link>
+          <Link to={`/profile/${profile?.username}`} className="text-gray-500 hover:underline">
+            @{profile?.username}
+          </Link>
           <span className="text-gray-500">· {formatRelativeTime(tweet.created_at)}</span>
         </div>
         <p className="text-white mt-1 whitespace-pre-wrap break-words">{tweet.content}</p>
 
         <button
           onClick={toggleLike}
-          className={`flex items-center gap-2 mt-3 text-sm transition ${
-            liked ? 'text-pink-500' : 'text-gray-500 hover:text-pink-500'
-          }`}
+          className={`flex items-center gap-2 mt-3 text-sm transition ${liked ? 'text-pink-500' : 'text-gray-500 hover:text-pink-500'
+            }`}
         >
           <Heart size={18} fill={liked ? 'currentColor' : 'none'} />
           {likeCount > 0 && likeCount}
