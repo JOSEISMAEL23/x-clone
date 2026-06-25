@@ -5,6 +5,7 @@ import Feed from './pages/Feed'
 import Layout from './components/Layout'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import Profile from './pages/Profile'
+import EditProfile from './pages/EditProfile'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Feed />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/settings" element={<EditProfile />} />
       </Route>
     </Routes>
   )

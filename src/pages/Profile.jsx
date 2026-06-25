@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import TweetCard from '../components/TweetCard'
@@ -83,10 +83,22 @@ function Profile() {
     <div>
       <div className="p-4 border-b border-gray-800">
         <div className="flex items-center justify-between">
-          <div className="w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center text-2xl font-bold text-white">
-            {profile.username[0]?.toUpperCase()}
+          <div className="w-20 h-20 rounded-full bg-blue-500 overflow-hidden flex items-center justify-center text-2xl font-bold text-white">
+            {profile.avatar_url ? (
+              <img src={profile.avatar_url} alt={profile.username} className="w-full h-full object-cover" />
+            ) : (
+              profile.username[0]?.toUpperCase()
+            )}
           </div>
-          {!isOwnProfile && (
+
+          {isOwnProfile ? (
+            <Link
+              to="/settings"
+              className="px-4 py-2 rounded-full font-bold border border-gray-600 text-white hover:bg-gray-900"
+            >
+              Editar perfil
+            </Link>
+          ) : (
             <button
               onClick={toggleFollow}
               className={`px-4 py-2 rounded-full font-bold transition ${

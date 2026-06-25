@@ -1,9 +1,9 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Heart } from 'lucide-react'
 import { formatRelativeTime } from '../lib/formatTime'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
 
 function TweetCard({ tweet }) {
   const { user } = useAuth()
@@ -27,11 +27,14 @@ function TweetCard({ tweet }) {
 
   return (
     <article className="flex gap-3 p-4 border-b border-gray-800">
-      <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white shrink-0">
-        {initial}
+      <div className="w-12 h-12 rounded-full bg-blue-500 overflow-hidden flex items-center justify-center font-bold text-white shrink-0">
+        {profile?.avatar_url ? (
+          <img src={profile.avatar_url} alt={profile.username} className="w-full h-full object-cover" />
+        ) : (
+          initial
+        )}
       </div>
       <div className="flex-1 min-w-0">
-      
         <div className="flex items-center gap-2 text-sm flex-wrap">
           <Link to={`/profile/${profile?.username}`} className="font-bold text-white hover:underline">
             {profile?.full_name}
@@ -45,8 +48,9 @@ function TweetCard({ tweet }) {
 
         <button
           onClick={toggleLike}
-          className={`flex items-center gap-2 mt-3 text-sm transition ${liked ? 'text-pink-500' : 'text-gray-500 hover:text-pink-500'
-            }`}
+          className={`flex items-center gap-2 mt-3 text-sm transition ${
+            liked ? 'text-pink-500' : 'text-gray-500 hover:text-pink-500'
+          }`}
         >
           <Heart size={18} fill={liked ? 'currentColor' : 'none'} />
           {likeCount > 0 && likeCount}
