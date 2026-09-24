@@ -50,7 +50,7 @@ function Feed() {
       ) : tweets.length === 0 ? (
         <p className="p-4 text-gray-500">Todavía no hay tweets. ¡Sé el primero!</p>
       ) : (
-        tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
+        tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} highlightMine />)
       )}
     </div>
   )

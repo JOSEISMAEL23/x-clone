@@ -5,13 +5,14 @@ import { formatRelativeTime } from '../lib/formatTime'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 
-function TweetCard({ tweet }) {
+function TweetCard({ tweet, highlightMine = false }) {
   const { user } = useAuth()
   const [liked, setLiked] = useState(tweet.likedByMe)
   const [likeCount, setLikeCount] = useState(tweet.likeCount)
 
   const profile = tweet.profiles
   const initial = profile?.username?.[0]?.toUpperCase() || '?'
+  const isMine = highlightMine && tweet.user_id === user.id
 
   const toggleLike = async () => {
     if (liked) {
@@ -26,7 +27,7 @@ function TweetCard({ tweet }) {
   }
 
   return (
-    <article className="flex gap-3 p-4 border-b border-gray-800">
+    <article className={`flex gap-3 p-4 border-b border-gray-800 ${isMine ? 'bg-[#15202b]' : ''}`}>
       <div className="w-12 h-12 rounded-full bg-blue-500 overflow-hidden flex items-center justify-center font-bold text-white shrink-0">
         {profile?.avatar_url ? (
           <img src={profile.avatar_url} alt={profile.username} className="w-full h-full object-cover" />
