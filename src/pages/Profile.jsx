@@ -80,8 +80,9 @@ function Profile() {
   const isOwnProfile = profile.id === user.id
 
   return (
-    <div>
-      <div className="p-4 border-b border-gray-800">
+        <div className="bg-slate-900 min-h-screen">
+
+      <div className="p-4 border-b border-gray-800 bg-gray-900">
         <div className="flex items-center justify-between">
           <div className="w-20 h-20 rounded-full bg-blue-500 overflow-hidden flex items-center justify-center text-2xl font-bold text-white">
             {profile.avatar_url ? (
