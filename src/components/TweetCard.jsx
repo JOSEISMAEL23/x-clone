@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Heart } from 'lucide-react'
-import { formatRelativeTime } from '../lib/formatTime'
+
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 
@@ -42,7 +42,7 @@ function TweetCard({ tweet }) {
           <Link to={`/profile/${profile?.username}`} className="text-gray-500 hover:underline">
             @{profile?.username}
           </Link>
-          <span className="text-gray-500">· {formatRelativeTime(tweet.created_at)}</span>
+        
         </div>
         <p className="text-white mt-1 whitespace-pre-wrap break-words">{tweet.content}</p>
 
