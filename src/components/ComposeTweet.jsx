@@ -25,7 +25,7 @@ function ComposeTweet({ onTweetCreated }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border-b border-gray-800">
+    <form onSubmit={handleSubmit} className="p-4 border-b border-gray-600">
       <textarea
         value={content}
         onChange={(e) => setContent(e.target.value)}
