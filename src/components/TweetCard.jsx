@@ -39,10 +39,6 @@ function TweetCard({ tweet }) {
           <Link to={`/profile/${profile?.username}`} className="font-bold text-white hover:underline">
             {profile?.full_name}
           </Link>
-          <Link to={`/profile/${profile?.username}`} className="text-gray-500 hover:underline">
-            @{profile?.username}
-          </Link>
-        
         </div>
         <p className="text-white mt-1 whitespace-pre-wrap break-words">{tweet.content}</p>
 
