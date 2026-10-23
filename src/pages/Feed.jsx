@@ -8,6 +8,7 @@ function Feed() {
   const { user } = useAuth()
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(true)
+  const [search, setSearch] = useState('')
 
   const fetchTweets = useCallback(async () => {
     const { data, error } = await supabase
@@ -41,16 +42,29 @@ function Feed() {
     fetchTweets()
   }, [fetchTweets])
 
+  const visibles = tweets.filter((tweet) =>
+    (tweet.profiles?.username || '').toLowerCase().includes(search.toLowerCase())
+  )
+
   return (
     <div>
       <h1 className="text-xl font-bold p-4 border-b border-gray-800">Inicio</h1>
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="buscar usuario por letras"
+        className="w-full p-3 bg-black text-white placeholder-gray-500 border-b border-gray-800 outline-none"
+      />
       <ComposeTweet onTweetCreated={fetchTweets} />
       {loading ? (
         <p className="p-4 text-gray-500">Cargando tweets...</p>
-      ) : tweets.length === 0 ? (
-        <p className="p-4 text-gray-500">Todavía no hay tweets. ¡Sé el primero!</p>
+      ) : visibles.length === 0 ? (
+        <p className="p-4 text-gray-500">
+          {search ? 'Ningún usuario coincide con: ' + search : 'Todavía no hay tweets. ¡Sé el primero!'}
+        </p>
       ) : (
-        tweets.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
+        visibles.map((tweet) => <TweetCard key={tweet.id} tweet={tweet} />)
       )}
     </div>
   )
